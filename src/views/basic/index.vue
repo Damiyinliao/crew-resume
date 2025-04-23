@@ -30,7 +30,7 @@
           </div>
           <div class="operate-btns">
             <nut-button :color="btnColor" @click="handleSave">
-              <span>{{ basicInfo.marinerId ? '更新' : '保存' }}</span>
+              <span>{{ basicInfo.marinerId ? "更新" : "保存" }}</span>
             </nut-button>
             <nut-button :color="btnColor" @click="handleNext">
               <span>下一步</span>
@@ -43,63 +43,63 @@
   </div>
 </template>
 <script lang="ts" name="BasicPage" setup>
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '@/store/modules';
-import { ResumeApi } from '@/api/modules';
-import { MaritimeDictionaryType } from '@/config/enums/resumeEnum';
-import * as Vant from 'vant';
-import Avatar from '@/components/Avatar/index.vue';
-import Loading from '@/components/Loading/index.vue';
+import { onMounted, ref } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/store/modules";
+import { ResumeApi } from "@/api/modules";
+import { MaritimeDictionaryType } from "@/config/enums/resumeEnum";
+import * as Vant from "vant";
+import Avatar from "@/components/Avatar/index.vue";
+import Loading from "@/components/Loading/index.vue";
 
 const router = useRouter();
 const userStore = useUserStore();
 const loading = ref(false);
 
-const btnColor = 'rgba(19, 91, 70, 0.81)';
+const btnColor = "rgba(19, 91, 70, 0.81)";
 const basicResumeList = [
   {
-    key: 'expectedPosition',
-    title: '职 务',
-    enTitle: 'Position',
-    type: 'select',
+    key: "expectedPosition",
+    title: "职 务",
+    enTitle: "Position",
+    type: "select",
     dictType: MaritimeDictionaryType.MaritimePosition,
   },
-  { key: 'chineseName', title: '姓 名', enTitle: 'Name' },
-  { key: 'englishName', title: '英文名', enTitle: 'EN Name' },
-  { key: 'mobilePhone', title: '手 机', enTitle: 'Cell Phone' },
-  { key: 'idCardNumber', title: '身份证号', enTitle: 'ID Card No.' },
+  { key: "chineseName", title: "姓 名", enTitle: "Name" },
+  { key: "englishName", title: "英文名", enTitle: "EN Name" },
+  { key: "mobilePhone", title: "手 机", enTitle: "Cell Phone" },
+  { key: "idCardNumber", title: "身份证号", enTitle: "ID Card No." },
   {
-    key: 'birthday',
-    title: '出生日期',
-    enTitle: 'Date of Birth',
-    type: 'date',
+    key: "birthday",
+    title: "出生日期",
+    enTitle: "Date of Birth",
+    type: "date",
   },
-  { key: 'birthplace', title: '出生地', enTitle: 'BirthPlace' },
-  { key: 'qq', title: 'QQ/MSN', enTitle: 'QQ' },
-  { key: 'email', title: '邮箱', enTitle: 'E-mail', type: 'mail' },
-  { key: 'height', title: '身高', enTitle: 'Height' },
-  { key: 'weight', title: '体重', enTitle: 'Weight' },
+  { key: "birthplace", title: "出生地", enTitle: "BirthPlace" },
+  { key: "qq", title: "QQ/MSN", enTitle: "QQ" },
+  { key: "email", title: "邮箱", enTitle: "E-mail", type: "mail" },
+  { key: "height", title: "身高", enTitle: "Height" },
+  { key: "weight", title: "体重", enTitle: "Weight" },
   // { key: 'shoeSize', title: '鞋码', enTitle: 'Shoe Size' },
   {
-    key: 'maritalStatus',
-    title: '婚否',
-    enTitle: 'Married',
-    type: 'select',
-    dictType: 'yesorno',
+    key: "maritalStatus",
+    title: "婚否",
+    enTitle: "Married",
+    type: "select",
+    dictType: "yesorno",
   },
-  { key: 'familyName', title: '家属姓名', enTitle: 'Family Name' },
-  { key: 'familyRelationship', title: '关系', enTitle: 'Family Relation' },
-  { key: 'familyMobile', title: '家属电话', enTitle: 'Family Mobile' },
-  { key: 'graduationSchool', title: '毕业院校', enTitle: 'College' },
-  { key: 'schoolYear', title: '学年', enTitle: 'Academic Year' },
-  { key: 'major', title: '专业', enTitle: 'Major' },
-  { key: 'contactAddress', title: '通讯地址', enTitle: 'Address' },
+  { key: "familyName", title: "家属姓名", enTitle: "Family Name" },
+  { key: "familyRelationship", title: "关系", enTitle: "Family Relation" },
+  { key: "familyMobile", title: "家属电话", enTitle: "Family Mobile" },
+  { key: "graduationSchool", title: "毕业院校", enTitle: "College" },
+  { key: "schoolYear", title: "学年", enTitle: "Academic Year" },
+  { key: "major", title: "专业", enTitle: "Major" },
+  { key: "contactAddress", title: "通讯地址", enTitle: "Address" },
 ];
 const basicInfo = ref<ResumeApi.ResumeBasicInfo>({
-  chineseName: '',
+  chineseName: "",
   marinerId: 0,
-  mobilePhone: '',
+  mobilePhone: "",
 });
 /** 更新基本信息单个key-value */
 function updateBasicInfoValue(key: string, value: any) {
@@ -116,19 +116,20 @@ async function getResumeBasic() {
     if (!res.data) return;
     basicInfo.value = res.data;
     const { marinerId, chineseName } = res.data;
-    userStore.setUserState('marinerId', marinerId);
-    userStore.setUserState('userName', chineseName);
+    userStore.setUserState("marinerId", marinerId);
+    userStore.setUserState("userName", chineseName);
   } catch (error) {
-    console.warn('获取船员基本信息失败', error);
+    loading.value = false;
+    console.warn("获取船员基本信息失败", error);
   }
 }
 /** 下一步 */
 function handleNext() {
   basicInfo.value.marinerId
-    ? router.push('/certificate')
+    ? router.push("/certificate")
     : Vant.showToast({
-        message: '请先填写基本信息并保存！',
-        icon: 'fail',
+        message: "请先填写基本信息并保存！",
+        icon: "fail",
         duration: 2000,
       });
 }
@@ -147,8 +148,8 @@ async function handleCreate() {
     const res = await ResumeApi.createBasic({ ...basicInfo.value });
     res.data &&
       Vant.showToast({
-        message: '保存成功',
-        icon: 'success',
+        message: "保存成功",
+        icon: "success",
         duration: 2000,
       });
     getResumeBasic();
@@ -163,12 +164,12 @@ async function handleUpdate() {
     const res = await ResumeApi.updateBasic({ ...basicInfo.value });
     res.data &&
       Vant.showToast({
-        message: '更新成功',
-        icon: 'success',
+        message: "更新成功",
+        icon: "success",
         duration: 2000,
       });
   } catch (error) {
-    console.warn('更新基本信息失败', error);
+    console.warn("更新基本信息失败", error);
   }
 }
 

@@ -40,7 +40,7 @@ export const useUserStore = defineStore({
     logout() {
       this.$reset();
       localStorage.clear();
-      wx.miniProgram.reLaunch({ url: "/pages/mine_old/index" });
+      wx.miniProgram.reLaunch({ url: "/pages/mine/new/index" });
     }
   },
   persist: {

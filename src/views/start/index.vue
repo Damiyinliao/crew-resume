@@ -15,9 +15,9 @@
   </div>
 </template>
 <script lang="ts" name="StartPage" setup>
-import { onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { useUserStore } from '@/store';
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/store";
 
 const router = useRouter();
 const userStore = useUserStore();
@@ -25,29 +25,20 @@ const userStore = useUserStore();
 /**  */
 function getQueryParams() {
   const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get('token');
-  const refreshToken = urlParams.get('refresh_token');
+  const token = urlParams.get("accessToken");
+  const refreshToken = urlParams.get("refreshToken");
   return {
     token,
     refreshToken,
   };
 }
-
-// function getHashQueryParams() {
-//   const hash = window.location.hash; // 获取 # 后面的部分
-//   const queryString = hash.split('?')[1]; // 获取 ? 后面的查询参数部分
-//   const urlParams = new URLSearchParams(queryString);
-//   const token = urlParams.get('token');
-//   return token;
-// }
 /** 开始 */
 function handleStart() {
-  router.push('/basic');
+  router.push("/basic");
 }
 
 onMounted(() => {
   const { token, refreshToken } = getQueryParams();
-  console.log('🚀 ~ onMounted ~ token:', token, refreshToken);
   userStore.setToken(token);
   userStore.setRefreshToken(refreshToken);
 });
